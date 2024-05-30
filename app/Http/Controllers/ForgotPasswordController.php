@@ -64,6 +64,7 @@ class ForgotPasswordController extends Controller
         $updatePassword = DB::table('password_reset_tokens')
             ->where('email', $validatedData['email'])
             ->where('token', $request->token)
+            ->whereNull('deleted_at')
             ->first();
 
         if (!$updatePassword) {
