@@ -6,13 +6,13 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Teacher extends User
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
     protected $fillable = [
-        'teacher_id',
         'password',
         'lastname',
         'firstname',
@@ -26,6 +26,7 @@ class Teacher extends User
         'street',
         'brgy',
         'city',
+        'state'
     ];
 
     public function strands()

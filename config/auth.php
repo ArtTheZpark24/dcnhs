@@ -49,10 +49,17 @@ return [
             'driver' => 'session',
             'provider' => 'students',
         ],
-         'guardian' => [
-            'driver' => 'session',
+
+        'guardian' => [
+
+
+         'driver' => 'session',
             'provider' => 'guardians',
-        ]
+
+
+        
+        ],
+
     ],
 
     /*
@@ -86,10 +93,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class
         ],
-         'guardians' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Guardian::class
-        ],
+
+        'guardians' => [
+
+          'driver' =>  'eloquent',
+          'model' => App\Models\Guardian::class
+
+
+        ]
     ],
 
     /*

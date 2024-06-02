@@ -6,10 +6,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Student extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
     protected $fillable = [
         'lrn',
@@ -20,7 +21,6 @@ class Student extends Authenticatable
         'sex',
         'strand_id',
         'grade_level_id',
-        'school_year_id',
         'place_birth',
         'date_birth',
         'email',
@@ -28,6 +28,8 @@ class Student extends Authenticatable
         'brgy',
         'city',
         'semester_id',
+        'state',
+        'user_id'
     ];
 
     public function strands()

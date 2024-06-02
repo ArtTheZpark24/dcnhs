@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class StudentSection extends Model
+class StudentGuardian extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable =
-     ['student_id', 
-    'section_id'];
+    protected $fillable = [
+        'guardian_id',
+        'student_id'
+    ];
 }

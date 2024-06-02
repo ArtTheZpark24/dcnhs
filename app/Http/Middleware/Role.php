@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Admin
+class Role
 {
     /**
      * Handle an incoming request.
@@ -15,16 +15,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if(auth()->check()){
-            return $next($request);
-
-        }
-       return redirect('/admin/login');
-       return redirect('forgot/password');
-       return redirect('reset/password/{token}');
-
-      
-       
+        return $next($request);
+        
     }
 }

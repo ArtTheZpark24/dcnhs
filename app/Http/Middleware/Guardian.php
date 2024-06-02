@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class Admin
+class Guardian
 {
     /**
      * Handle an incoming request.
@@ -15,16 +16,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if(auth()->check()){
+        if(Auth::guard('guardian')->check()){
             return $next($request);
-
         }
-       return redirect('/admin/login');
-       return redirect('forgot/password');
-       return redirect('reset/password/{token}');
-
-      
-       
+       return redirect('/guardians/login');
     }
-}
+    }
+
