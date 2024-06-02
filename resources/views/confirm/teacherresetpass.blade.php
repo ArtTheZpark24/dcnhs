@@ -1,0 +1,27 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-secondary btn-sm d-flex gap-2 mt-2" data-bs-toggle="modal" data-bs-target="#resetModal{{ $data->id }}">
+    <i class="fa-solid fa-user-lock"></i> Reset Password
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="resetModal{{ $data->id }}" tabindex="-1" aria-labelledby="resetModalLabel{{ $data->id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetModalLabel{{ $data->id }}">Confirm Password Reset</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to reset the password of teacher {{ $data->teacher_id }}?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form action="{{ route('teachers..reset.password', ['id' => $data->id]) }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

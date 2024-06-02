@@ -90,7 +90,7 @@ margin-top: 32px;
     }
 
 
-    .login-page > .form-container form input,
+    .login-page > .form-container form .login-input,
     .login-page > .form-container form .btn-login {
         width: 100%;
     }

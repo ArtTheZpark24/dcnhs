@@ -50,7 +50,10 @@
                     <button class="btn btn-primary btn-sm d-flex align-items-center gap-2" type="submit">
                       <i class="fa-solid fa-magnifying-glass"></i>
                       Search</button>
+                      
                   </form>
+
+                  
                 </div>
               </div>
               
@@ -120,14 +123,20 @@
            <td>{{ $data->city == null ? 'N/A' : $data->city  }}</td>
            <td>{{ $data->state == null ? 'N/A' : $data->state }}</td>
            <td>
-           <div class="d-flex">
+           <div class="d-flex" >
            @include('edit.teachers')
-           <form action="{{ route('teachers.data.delete', ['id' => $data->id]) }}" method="POST">
-            @csrf
-            @method('DELETE')
-               <button class="btn btn-danger btn-sm d-flex gap-2 mt-2"><i class="fa-solid fa-trash mt-1"></i> Delete</button>
-          </form>
+           
+
+           @include('confirm.teacherdelete')
+          
+          
+        
+
            </div>
+
+            @include('confirm.teacherresetpass')
+           
+          
            </td>
 
     

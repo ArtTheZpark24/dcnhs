@@ -86,7 +86,7 @@
   
                         <div class="col-md-3 mt-3">
                             <label for="date_birth">Birth Date *</label>
-                            <input type="date" class="form-control @error('date_birth') is-invalid @enderror" id="date_birth" name="date_birth" value="{{ $data->date_birth }}" required>
+                            <input type="date" class="form-control @error('date_birth') is-invalid @enderror" id="date_birth" name="date_birth" value="{{ $data->date_birth }}">
                             @error('date_birth')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -104,7 +104,7 @@
   
                         <div class="col-md-3 mt-3">
                             <label for="phone_number">Phone Number *</label>
-                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" name="phone_number" placeholder="Phone Number" value="{{ $data->phone_number }}" required>
+                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" name="phone_number" placeholder="Phone Number" value="{{ $data->phone_number }}" >
                             @error('phone_number')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

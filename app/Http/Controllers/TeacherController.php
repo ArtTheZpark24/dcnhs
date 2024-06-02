@@ -136,7 +136,7 @@ class TeacherController extends Controller
 
 
         $validatedData = $request->validate([
-            'teacher_id' => 'numeric|required|digits:7|unique:teachers,teacher_id'. $id,
+            'teacher_id' => 'numeric|required|digits:7|unique:teachers,teacher_id,' . $id,
             'password' => 'string',
             'lastname' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
@@ -145,7 +145,7 @@ class TeacherController extends Controller
             'sex' => 'nullable|in:Male,Female', 
             'birth_place' => 'nullable|string|max:255',
             'date_birth' => 'nullable|date',
-            'email' => 'required|email|max:255|unique:users,email',
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
             'phone_number' => 'nullable|numeric|string|digits:11',
             'street' => 'nullable|string|max:255',
             'brgy' => 'nullable|string|max:255',
@@ -191,7 +191,7 @@ class TeacherController extends Controller
 
 
 
-        $validatedData['password'] = bcrypt($validatedData['teacher_id']);
+        
 
 
 
@@ -272,5 +272,19 @@ class TeacherController extends Controller
 
 
 
+    }
+
+    public function resetPass($id){
+
+        $teacher = Teacher::find($id);
+
+        if(!$teacher){
+
+            return view('error.error');
+        }
+
+        $teacher->password = bcrypt($teacher->teacher_id);
+
+        return redirect()->back()->with('success', 'Password succesfully reset');
     }
 }

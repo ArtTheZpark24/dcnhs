@@ -74,7 +74,7 @@ Route::post('/admin-post', [AdminController::class, 'adminLogin'])->name('admin-
 Route::middleware('admin')->group(function(){
 //users
 Route::get('admin/all/users', [AlluserController::class, 'index'])->name('all.users');
-Route::get('admin/all/users/export', [ExportUsertController::class, 'export'])->name('users.export');
+
  //student route
 Route::post('admin/import/students', [StudentController::class, 'studentImport'])->name('students.excel');
 Route::get('admin/create/students', [StudentController::class, 'index'])->name('students.create');
@@ -102,7 +102,7 @@ Route::put('admin/teachers/update{id}', [TeacherController::class, 'update'])->n
 Route::delete('admin/teachers/delete{id}', [TeacherController::class, 'delete'])->name('teachers.data.delete');
 Route::get('admin/teachers/archive', [TeacherController::class, 'archive'])->name('teachers.data.archive');
 Route::patch('admin/teachers/archive/{id}', [TeacherController::class, 'restore'])->name('teachers.data.restore');
-
+Route::put('admin/teachers/password/rest/{id}', [TeacherController::class, 'resetPass'])->name('teachers..reset.password');
 //guardian route
 
 Route::get('admin/create/guardians', [GuardianController::class, 'index'])->name('guardians.create');
