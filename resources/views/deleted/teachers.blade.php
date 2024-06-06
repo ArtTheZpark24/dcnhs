@@ -1,4 +1,4 @@
-s<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,7 +35,7 @@ s<!DOCTYPE html>
           <div class="card-header bg-primary text-white">
            <span>Teacher List</span>
           </div>
-          <div class="card-body shadow-sm table-responsive">
+          <div class="card-body shadow-sm">
 
             
                     <div class="container mb-3">
@@ -62,7 +62,7 @@ s<!DOCTYPE html>
 
 
 
-               
+               <div class="table-responsive">
          
 
           @if ($datas->count() > 0)
@@ -149,10 +149,16 @@ s<!DOCTYPE html>
 
   </table>
 
+  </div>
+
    @else
    <p>No teachers found</p>
               
           @endif
+
+          <div class="mt-5">
+                    {{ $datas->appends(request()->query())->links('pagination::bootstrap-5') }}
+                </div>
 
 
 

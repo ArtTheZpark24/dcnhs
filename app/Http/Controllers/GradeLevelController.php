@@ -10,17 +10,6 @@ class GradeLevelController extends Controller
 {
     //
 
-    public function index(){
-
-        $email = Auth::user()->email;
-
-
-        $levels = GradeLevel::select('level', 'id')
-        ->whereNull('deleted_at')
-        ->get();
-
-        return view('admin.level', compact('email', 'levels'));
-    }
 
 
     public function gradeLevelPost(Request $request){

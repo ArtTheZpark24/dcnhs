@@ -85,18 +85,15 @@
               <div class="d-flex">
              @include('edit.admin')
 
-             <form action="{{ route('admin.delete', ['id'=> $admin->id]) }}" method="POST">
+             @include('confirm.admindelete')
+              </div>
 
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger btn-sm d-flex gap-2 mt-2"><i class="fa-solid fa-trash mt-1"></i> Delete</button>
-             </form>
                
              @endif
                 
 
 
-             </div>
+            
              </td>
             </tr>
                 

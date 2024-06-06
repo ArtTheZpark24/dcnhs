@@ -11,6 +11,22 @@ body{
     
 }
 
+.sticky-exportExcel {
+    position: sticky;
+    top: 0;
+    background-color: #28a745;
+    color: #fff;
+    border-color: #28a745;
+    float: right;
+}
+
+.sticky-exportExcel:focus,
+.sticky-exportExcel:hover {
+    color: #fff;
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
 .toggle-sidebar{
 
   position: fixed;

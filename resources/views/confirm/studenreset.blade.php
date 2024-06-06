@@ -12,11 +12,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to reset the password of teacher {{ $data->teacher_id }}?
+                Are you sure you want to reset the password of student {{ $data->lrn }}?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form action="{{ route('teachers..reset.password', ['id' => $data->id]) }}" method="POST">
+                <form action="{{ route('student.password.reset', ['id' => $data->id]) }}" method="POST">
                     @csrf
                     @method('POST')
                     <button type="submit" class="btn btn-primary">Reset</button>

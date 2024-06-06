@@ -35,7 +35,7 @@
     @include('partials.message')
     <div class="row">
      @if ($subjects->count() > 0)
-     
+     <div class="table-responsive">
      <table class="table table-bordered">
   <thead>
     <tr>
@@ -56,18 +56,9 @@
         <td>
         <div class="d-flex">
         @include('edit.subject')
+        @include('confirm.subjectdelete')
         
-        <form action="{{ route('subject.delete', ['id' => $subject->id]) }}" method="POST" class="mt-2">
-
-            @csrf
-            @method('DELETE')
-
-        <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-           Delete
-        </button>
-        </div>
-
-        </form>
+        
      
         </td>
       </tr>
@@ -77,7 +68,7 @@
 
 
      
-
+</div>
 
         
           

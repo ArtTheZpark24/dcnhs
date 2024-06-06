@@ -342,7 +342,7 @@ return view('guardian.changepassword');
 
 }
 
-public function w(Request $request){
+public function updatePassword(Request $request){
 
 $guardianId = Auth::guard('guardian')->user()->id;
 

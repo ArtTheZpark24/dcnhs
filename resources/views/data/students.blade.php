@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Students Data</title>
+    <style>
+    .exportExcel {
+    position: sticky;
+    top: 0;
+    background-color: white; 
+    z-index: 1; 
+    padding: 10px;
+}
+    </style>
     @include('partials.css')
 </head>
 <body>
@@ -35,14 +44,14 @@
           <div class="card-header bg-primary text-white d-flex gap-5 justify-content-between align-items-center">
            <span>Student List</span>
 
+            <div class="col-md-3">
+
+       
+         </div>
+
          
           </div>
           <div class="card-body shadow-sm ">
-
-            
-            
-
-            
 
             
             <div class="container mb-3">
@@ -58,20 +67,98 @@
                     </form>
                   </div>
                 </div>
-                
-   
-                
-              </div>
+
+            
+
+            
          
 
             @include('partials.message')
 
          <a href="{{ route('students.create') }}" class="mb-3 btn btn-primary btn-sm mt-3"> <i class="fa-solid fa-user-plus"></i> Add new tudents</a>
+         <br>
 
                
          @if ($datas->count() > 0)
+
+        
          <div class="table-responsive" >
-  @include('partials.student')
+            <table class=" " style="font-size: 14px;" id="dataTable">
+
+                <thead>
+            <tr>
+           
+            <th scope="col">LRN</th>
+            <th scope="col">Last name</th>
+            <th scope="col">First name</th>
+            <th scope="col">Middle name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Sex</th>
+            <th scope="col">Strand</th>
+            <th scope="col">Place Birth</th>
+            <th scope="col">Age</th>
+            <th scope="col">Street</th>
+            <th scope="col">Barangay</th>
+            <th scope="col">City</th>
+              <th scope="col">State</th>
+            <th scope="col">Action</th>
+            </tr>
+            </thead>
+            
+            <tbody>
+            @foreach ($datas as $data )
+            
+            
+            <tr>
+            
+            
+            
+            <td>{{$data->lrn}}</td>
+            <td>{{$data->lastname}}</td>
+            <td>{{$data->firstname}}</td>
+            <td>{{$data->middlename}}</td>
+             <td>{{$data->email}}</td>
+             <td>{{$data->sex}}</td>
+            
+               <td>{{$data->strand}} - {{$data->level}}</td>
+               <td>{{$data->place_birth}}</td>
+                       <?php
+            
+            $birthDate = new DateTime($data->date_birth);
+            $currentDate = new DateTime();
+            $age = $currentDate->diff($birthDate)->y;
+                 ?>
+               <td>{{$age}}</td>
+               <td>{{$data->street == null ? 'N/A' : $data->street }}</td>
+               <td>{{$data->brgy == null ? 'N/A' : $data->brgy }}</td>
+               <td>{{$data->city == null ? 'N/A' : $data->city }}</td>
+               <td>{{$data->state == null ? 'N/A' : $data->state }}</td>
+               <td>
+               <div class="d-flex gap-3">
+               @include('edit.students')
+               
+               @include('confirm.studentdelete')
+               @include('confirm.studenreset')
+            
+                 <div class="mt-2">
+               <a class="btn btn-success btn-sm d-flex gap-2" href="{{route('admin.student.checklist', ['id' => $data->id])}}"><i class="fa-solid fa-list-check mt-1"></i> Checklist </a>
+                </div>
+               </div>
+            
+            
+               
+               
+               </td>
+            
+                
+                 
+            
+            </tr>
+            
+            @endforeach
+            </tbody>
+            
+            </table>
          
  </div>
 
@@ -103,28 +190,5 @@
 </html>
 
 
-<script>
-$(document).ready(function() {
-    $('#strand_id').on('change keyup', function() {
-        liveSearch();
-    });
 
-    function liveSearch() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('students.data') }}",
-            data: {
-                strand_id: $('#strand_id').val()
-            },
-            success: function(response) {
-                $('#studentData').html(response); 
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-                $('#errorMessage').text("An error occurred: " + xhr.responseText);
-            }
-        });
-    }
-});
-</script>
 

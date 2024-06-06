@@ -49,13 +49,9 @@
                                 <tr>
                                     <td>{{ $subject->subject }}</td>
                                     <td>
-                                     <form action="{{route('strandsub.delete', ['id'=>$subject->id])}}" method="POST">
-                                     @csrf
-                                     @method('DELETE')
-                                    <button class="btn">
-                                    <i class="link-danger fa-solid fa-trash"></i>
-                                    </button>
-                                    </form> </td>
+
+                                    @include('confirm.strandsubdelete')
+                                     </td>
                                    
                                 </tr>
                                 @php

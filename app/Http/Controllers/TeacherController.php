@@ -146,7 +146,7 @@ class TeacherController extends Controller
             'birth_place' => 'nullable|string|max:255',
             'date_birth' => 'nullable|date',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'phone_number' => 'nullable|numeric|string|digits:11',
+            'phone_number' => 'nullable|string|digits:11|regex:/^09\d{9}$/',
             'street' => 'nullable|string|max:255',
             'brgy' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
@@ -223,12 +223,12 @@ class TeacherController extends Controller
 
     $query = $request->input('query');
 
-    // Store the query in the session for later retrieval
+
     session()->flash('old_query', $query);
 
-    // If a search query exists
+
     if ($query) {
-        // Apply the search query only to trashed teachers
+     
         $datasQuery->where(function($queryBuilder) use ($query) {
             $queryBuilder->where('lastname', 'LIKE', "%{$query}")
                 ->orWhere('middlename', 'LIKE', "%{$query}") 

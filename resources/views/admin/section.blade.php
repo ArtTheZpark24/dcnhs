@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create section</title>
+    <title>Section</title>
     @include('partials.css')
 </head>
 <body>
@@ -60,17 +60,11 @@
                     
                     <div class="d-flex">
                     <a href="{{ route('section.student.index', ['strand_id'=> $section->strand_id, 'grade_level_id'=> $section->grade_level_id, 'section_id' => $section->id]) }}" class=" d-flex justify-content-center align-items-center">
-    <button class="btn btn-primary btn-sm">Students</button
+    <button class="btn btn-success btn-sm d-flex gap-2"><i class="fa-solid fa-graduation-cap mt-1"></i> Students</button
 </a>
 
                     @include('edit.section')
-                    <form action="{{ route('section.post.delete', ['id'=> $section->id]) }}" method="POST" class="mt-2">
-            @csrf
-            @method('DELETE')
-         <button class="btn btn-danger btn-sm">
-         Delete
-         </button>
-         </form>
+                   @include('confirm.sectiondelete')
         
          </div>
 

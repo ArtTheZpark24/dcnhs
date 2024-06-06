@@ -152,7 +152,7 @@ if ($query) {
                          ->orWhere('students.email', 'LIKE', "%{$query}%")
                          ->orWhere('students.lrn', 'LIKE', "%{$query}%")
                          ->orWhere('levels.level', 'LIKE', "%{$query}%")
-                         ->orWhere('strand_join.strands', 'LIKE', "%{$query}%") // Use the alias for the joined table
+                         ->orWhere('strand_join.strands', 'LIKE', "%{$query}%") 
                          ->orWhere('students.sex', 'LIKE', "%{$query}%")
                          ->orWhere('students.place_birth', 'LIKE', "%{$query}%")
                          ->orWhere('students.date_birth', 'LIKE', "%{$query}%")
@@ -160,13 +160,13 @@ if ($query) {
                          ->orWhere('students.brgy', 'LIKE', "%{$query}%")
                          ->orWhere('students.city', 'LIKE', "%{$query}%")
                          ->orWhere('students.state', 'LIKE', "%{$query}%")
+                        ->orWhereRaw("CONCAT(strand_join.strands, '-', levels.level) LIKE ?", ["%{$query}%"])
                          ->orWhereRaw("CONCAT(students.firstname, ' ', students.lastname, ' ', students.middlename) LIKE ?", ["%{$query}%"])
                          ->orWhereRaw("CONCAT(students.lastname, ' ', students.firstname, ' ', students.middlename) LIKE ?", ["%{$query}%"])
                          ->orWhereRaw("CONCAT(students.middlename, ' ', students.firstname, ' ', students.lastname) LIKE ?", ["%{$query}%"])
                          ->orWhereRaw("CONCAT(students.firstname, ' ', students.middlename, ' ', students.lastname) LIKE ?", ["%{$query}%"])
                          ->orWhereRaw("CONCAT(students.lastname, ' ', students.middlename, ' ', students.firstname) LIKE ?", ["%{$query}%"])
                          ->orWhereRaw("CONCAT(strand_join.strands, ' ',levels.level) LIKE ?", ["%{$query}%"])
-                         
                          ->orWhereRaw("CONCAT(students.middlename, ' ', students.lastname, ' ', students.firstname) LIKE ?", ["%{$query}%"]);
         });
 }
@@ -229,7 +229,7 @@ if ($query) {
         ]);
         
 
-   $validatedData['password'] = bcrypt($validatedData['lrn']); 
+
 
    $data->update($validatedData);
 
@@ -333,11 +333,36 @@ if ($query) {
 
 
 
+    } 
+
+    public function resetPass($id){
+
+     $student = Student::find($id);
+
+     if(!$student){
+
+
+     return view('error.error');
+
+     }
+
+     $student->password = bcrypt($student->lrn);
+
+     $student->update();
+
+     return redirect()->back()->with('success', 'Student' . ' '. $student->lrn. ' '. 'succesfully reset the password');
+
     }
 
     public function restore($id){
 
     $student = Student::withTrashed()->find($id);
+
+    if(!$student){
+
+    return view('error.error');
+
+    }
 
     $student->restore();
 
@@ -374,6 +399,16 @@ $graduates = Graduate::join('students', 'students.id', '=', 'graduates.student_i
 
     $student = Student::find($stud_id);
 
+
+    if(!$grad || ! $student){
+
+
+
+    return view('error.error');
+
+
+    }
+
     $grad->delete();
 
     $student->status = 1;
@@ -385,13 +420,5 @@ $graduates = Graduate::join('students', 'students.id', '=', 'graduates.student_i
 
     }
 
-    public function studentImport(Request $request){
-
-    $file = $request->file('file');
-
-    Excel::import(new StudentsImport, $file);
-
-    return redirect()->back()->with('success', 'import successfully');
-
-    }
+    
 }

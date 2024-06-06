@@ -42,7 +42,7 @@
 
                         <div class="col-xs-3 col-sm-3 col-md-3 mt-3">
                             <label for="occupation">Occupation *</label>
-                            <input type="text" class="form-control @error('occupation') is-invalid @enderror" id="occupation" name="occupation" placeholder="Occupation" value="{{ $data->occupation}}" required>
+                            <input type="text" class="form-control @error('occupation') is-invalid @enderror" id="occupation" name="occupation" placeholder="Occupation" value="{{ $data->occupation}}" >
                             @error('occupation')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -63,7 +63,7 @@
 
                         <div class="col-xs-3 col-sm-3 col-md-3 mt-3">
                             <label for="place_of_birth">Place of Birth *</label>
-                            <input type="text" class="form-control @error('place_of_birth') is-invalid @enderror" id="place_of_birth" name="place_of_birth" placeholder="Place of Birth" value="{{ $data->place_of_birth }}" required>
+                            <input type="text" class="form-control @error('place_of_birth') is-invalid @enderror" id="place_of_birth" name="place_of_birth" placeholder="Place of Birth" value="{{ $data->place_of_birth }}" >
                             @error('place_of_birth')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -71,7 +71,7 @@
 
                         <div class="col-xs-3 col-sm-3 col-md-3 mt-3">
                             <label for="birth_date">Date of Birth *</label>
-                            <input type="date" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{ $data->birth_date }}" required>
+                            <input type="date" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" value="{{ $data->birth_date }}" >
                             @error('birth_date')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -87,7 +87,7 @@
 
                         <div class="col-xs-3 col-sm-3 col-md-3 mt-3">
                             <label for="phone">Phone *</label>
-                            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Phone" value="{{ $data->phone }}" required>
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" placeholder="Phone" value="{{ $data->phone }}" >
                             @error('phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

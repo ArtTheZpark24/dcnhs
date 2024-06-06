@@ -24,14 +24,20 @@
 @include('partials.maincontent')
       
    <div class="row widgets">
-         <div class="col-md-3 widgets-item">
+         <div class="col-md-3 widgets-item" class="">
          <h4 class="navbar-brand text-uppercase widgets-title">
+     
           Total Students
          </h4>
 
+        
+
          <span class="widgets-count ">
+             
          {{$totalStudents}}
          </span>
+
+         
          </div>
 
          <div class="col-md-3 widgets-item">

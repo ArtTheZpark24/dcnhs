@@ -206,13 +206,14 @@ if ($existingStudGrades) {
 $teacher = Auth::guard('teacher')->user();
 
 
- $message['grades'] = "New Grades submitted by: " . $teacher->firstname . " " . $teacher->lastname;
+$message['grades'] = "New Grades submitted by: " . $teacher->firstname . " " . $teacher->lastname;
+$subjectMail = 'New Grades Submit';
 
 foreach($admins as $admin){
 
   
 
-     $admin->notify(new NewGradesSubmitted($message));
+     $admin->notify(new NewGradesSubmitted($message, $subjectMail));
 
 
      

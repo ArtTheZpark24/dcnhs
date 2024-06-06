@@ -85,7 +85,9 @@ Route::delete('admin/create/student/delete/{id}', [StudentController::class, 'de
 Route::get('admin/student/archive', [StudentController::class, 'archive'])->name('students.data.archive');
 Route::patch('admin/student/restore/{id}', [StudentController::class, 'restore'])->name('students.data.restore');
 
+//reset the password of student
 
+Route::post('admin/student/reset/password/{id}', [StudentController::class, 'resetPass'])->name('student.password.reset');
 
 
    
@@ -102,7 +104,7 @@ Route::put('admin/teachers/update{id}', [TeacherController::class, 'update'])->n
 Route::delete('admin/teachers/delete{id}', [TeacherController::class, 'delete'])->name('teachers.data.delete');
 Route::get('admin/teachers/archive', [TeacherController::class, 'archive'])->name('teachers.data.archive');
 Route::patch('admin/teachers/archive/{id}', [TeacherController::class, 'restore'])->name('teachers.data.restore');
-Route::put('admin/teachers/password/rest/{id}', [TeacherController::class, 'resetPass'])->name('teachers..reset.password');
+Route::post('admin/teachers/password/rest/{id}', [TeacherController::class, 'resetPass'])->name('teachers..reset.password');
 //guardian route
 
 Route::get('admin/create/guardians', [GuardianController::class, 'index'])->name('guardians.create');
@@ -110,11 +112,12 @@ Route::post('admin/create/guardians', [GuardianController::class, 'create'])->na
 Route::get('admin/guardians/list', [GuardianController::class, 'data'])->name('guardians.data');
 Route::put('admin/guardians/update{id}', [GuardianController::class, 'update'])->name('guardians.update');
 Route::delete('admin/guardians/delete{id}', [GuardianController::class, 'delete'])->name('guardians.delete');
-Route::delete('admin/guardians/delete/all', [GuardianController::class, 'deleteAll'])->name('guardians.delete.all');
 Route::get('admin/guardians/archive', [GuardianController::class, 'archive'])->name('guardians.archive');
 Route::patch('admin/guardians/restore/{id}', [GuardianController::class, 'restore'])->name('guardians.restore');
 Route::post('admin/guardians/restore/all', [GuardianController::class, 'restoreAll'])->name('guardians.restore.all');
 
+//guardian reset password
+Route::post('admin/guardians/password/reset/{id}', [GuardianController::class, 'resetPass'])->name('guardian.password.reset');
 
 //Strand Route
    Route::get('/admin/add/strand', [StrandController::class, 'index'])->name('strand.index');
@@ -175,10 +178,7 @@ Route::delete('/admin/add/strand/delete/{id}', [StrandController::class, 'delete
 
     //Grade level Route
 
-    Route::get('admin/grade/level', [GradeLevelController::class, 'index'])->name('grade.level');
-    Route::post('admin/grade/level', [GradeLevelController::class, 'gradeLevelPost'])->name('grade.level.post');
-    Route::put('admin/grade/level/edit{id}', [GradeLevelController::class, 'update'])->name('grade.level.update');
-     Route::delete('admin/grade/level/delete{id}', [GradeLevelController::class, 'delete'])->name('grade.level.delete');
+
 
 
      //grading route

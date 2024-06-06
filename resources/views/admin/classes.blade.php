@@ -66,14 +66,8 @@
                           <div class="d-flex">
                             
                             @include('edit.classes')
-                          <form action="{{ route('strand.class.delete', ['id' => $class->id]) }}" method="POST">
-
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm mt-2 d-flex gap-2">
-                           <i class="fa-solid fa-trash mt-1 "></i>  Delete
-                            </button>
-                            </form>
+                            @include('confirm.classdelete')
+                          
                             </td>
                             </div>
                     </tr>

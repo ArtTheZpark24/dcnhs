@@ -39,7 +39,7 @@ class CheckListController extends Controller
                 ->where('student_id', $studentId)
                 ->where('subject_id', $subject->subject_id)
                 ->where('status', 2)
-                ->where('quarter', 4)
+                ->where('quarter', 2)
                 ->exists();
 
             $subject->has_grades = $hasGrades;

@@ -1,5 +1,5 @@
 
-<div id="gradingTableContainer" class="table-responsive">
+<div id="gradingTableContainer" class="table-responsive" id="dataTable">
 
 
 <table class="table table-bordered mt-3" >

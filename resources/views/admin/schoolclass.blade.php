@@ -68,12 +68,7 @@
     <td>{{ $class->lastname}}, {{$class->firstname}} {{$class->initial}}.</td>
     <td>
       <div class="d-flex gap-2">
-    <form action="{{ route('strand.class.delete', ['id' =>$class->id]) }}" method="POST">
-      @method('DELETE')
-      @csrf
-    <button class="btn btn-danger btn-sm d-flex gap-2"><i class="fa-solid fa-trash mt-1"></i> Delete</button>
-    
-    </form>
+        @include('confirm.classdelete')
     
     </div>
     </td>

@@ -32,7 +32,7 @@
        
         <li class="side-item"><a href="{{ route('admin.dashboard') }}" class="active-link"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a></li>
         <li class="accordion-button collapsed side-item" type="button" data-bs-toggle="collapse" data-bs-target="#allData" aria-expanded="false" aria-controls="flush-collapseTwo">
-          <a href="#"><i class="fa-solid fa-users"></i>  <span>Add data</span></a>
+          <a href="#"><i class="fa-solid fa-user-plus"></i> <span>Add data</span></a>
         </li>
         <ul id="allData" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
           @if(auth()->check() && auth()->user()->is_admin == 1)
@@ -45,7 +45,7 @@
           <li class="side-item"> <a href="{{ route('students.data') }}"><i class="fa-solid fa-graduation-cap"></i> <span>Student</span></a></li>
           <li class="side-item"> <a href="{{route('guardians.data')}}"><i class="fa-solid fa-person-breastfeeding"></i> <span>Guardian</span></a></li>
         </ul>
-      <li class="side-item"><a href="{{route('all.users')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>All Data</span></a></li>
+      <li class="side-item"><a href="{{route('all.users')}}"><i class="fa-solid fa-users"></i> <span>All Users</span></a></li>
        
            <!-- data list -->
          
@@ -54,7 +54,6 @@
           <li class="side-item"><a href="{{route('admin.school.classes')}}"><i class="fa-solid fa-school"></i><span> Class</span></a></li>
         <li class="side-item"><a href="{{route('subject.index')}}"><i class="fa-solid fa-book"></i> <span>Subject</span></a></li>
         <li class="side-item"><a href="{{ route('section.index') }}"><i class="fa-solid fa-layer-group"></i> <span>Section</span></a></li>
-        <li class="side-item"><a href="{{ route('grade.level') }}"><i class="fa-solid fa-chart-line"></i></i> <span>Grade level</span></a></li>
         <li class="side-item"><a href="{{route('school.year')}}"><i class="fa-solid fa-calendar"></i></i> <span>School year</span></a></li>
         <li class="side-item"><a href="{{ route('semester') }}"><i class="fa-solid fa-calendar-check"></i> <span>Semester</span></a></li>
         <li class="side-item"><a href="{{route('grading.index')}}"><i class="fa-solid fa-table"></i> <span>Student Grades</span></a></li>

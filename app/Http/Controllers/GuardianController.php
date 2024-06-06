@@ -24,7 +24,7 @@ class GuardianController extends Controller
         'lastname' => 'required|string|max:255',
         'middlename' => 'required|string|max:255',
         'firstname' => 'required|string|max:255',
-        'phone' => 'nullable|string|digits:11',
+         'phone' => 'nullable|string|digits:11|regex:/^09\d{9}$/',
         'place_of_birth' => 'nullable|string|max:255',
         'email' => 'required|string|email|unique:guardians|max:255',
         'birth_date' => 'nullable|date',
@@ -75,6 +75,8 @@ public function data(Request $request){
                          ->orWhere('firstname', 'LIKE', "%{$query}%")
                          ->orWhere('middlename', 'LIKE', "%{$query}%")
                          ->orWhere('email', 'LIKE', "%{$query}%")
+                         ->orWhere('occupation', 'LIKE', "%{$query}%")
+                         ->orWhere('phone', 'LIKE', "%{$query}%")
                         ->orWhereRaw("CONCAT(firstname, ' ', lastname, ' ', middlename) LIKE ?", ["%{$query}%"])
                          ->orWhereRaw("CONCAT(lastname, ' ', firstname, ' ', middlename) LIKE ?", ["%{$query}%"])
                          ->orWhereRaw("CONCAT(middlename, ' ', firstname, ' ', lastname) LIKE ?", ["%{$query}%"])
@@ -95,9 +97,9 @@ public function update(Request $request, $id) {
        'lastname' => 'required|string|max:255',
        'middlename' => 'required|string|max:255',
        'firstname' => 'required|string|max:255',
-       'phone' => 'nullable|string|digit:11',
+       'phone' => 'nullable|string|digits:11|regex:/^09\d{9}$/',
        'place_of_birth' => 'nullable|string|max:255',
-       'email' => 'required|string|email|unique:guardians|max:255',
+      'email' => 'required|string|email|unique:guardians,email,' . $id . ',id|max:255',
        'birth_date' => 'nullable|date',
        'street' => 'nullable|string|max:255',
        'barangay' => 'nullable|string|max:255',
@@ -108,8 +110,6 @@ public function update(Request $request, $id) {
    'lastname.required' => 'Please provide your last name.',
    'middlename.required' => 'Please provide your middle name.',
    'firstname.required' => 'Please provide your first name.',
-
-
    'email.required' => 'Please provide your email address.',
    'email.email' => 'Please provide a valid email address.',
    'email.unique' => 'The email address has already been taken.',
@@ -119,12 +119,12 @@ public function update(Request $request, $id) {
 
 
     
-        $validatedData['password'] = bcrypt('password1234');
+
     
 
     $data->update($validatedData);
 
-    return redirect()->route('guardians.data')>with('success', 'Guardian successfully updated');
+    return redirect()->route('guardians.data')->with('success', 'Guardian successfully updated');
 }
 
 public function delete($id){
@@ -213,21 +213,19 @@ public function restore($id){
 
 }
 
-public function deleteAll(Request $request)
-{
-    $ids = $request->input('ids');
-    
-    if (!empty($ids)) {
-        Guardian::whereIn('id', $ids)->delete();
-        session()->flash('success', 'Selected records have been deleted successfully.');
-        return response()->json(['success' => true]);
-    } else {
-        return response()->json(['error' => 'No records selected.']);
+public function resetPass($id){
+
+    $guardian = Guardian::find($id);
+
+    if(!$guardian){
+
+        return view('error.error');
     }
+
+    $guardian->password = bcrypt('password1234');
+
+return redirect()->back()->with('success', 'Password Succesfully reset');
 }
 
-
-
-
-
 }
+

@@ -65,7 +65,7 @@
                   <tr>
                     <th>Select All <br>
                       
-                       <input type="checkbox" id="select_all_ids"></th>
+                   
                     <th scope="col">Last name</th>
                     <th scope="col">First name</th>
                     <th scope="col">Middle name</th>
@@ -82,7 +82,7 @@
                 <tbody>
                   @foreach ($datas as $data)
                     <tr>
-                      <td><input type="checkbox" name="ids[]" value="{{ $data->id }}" class="checkbox_ids"></td>
+                   
                       <td>{{ $data->lastname }}</td>
                       <td>{{ $data->firstname }}</td>
                       <td>{{ $data->middlename }}</td>
@@ -115,7 +115,7 @@
                 </tbody>
               </table>
             </div>
-            <a id="restoreSelected"  class="btn btn-warning btn-sm mt-3"><i class="fa-solid fa-arrow-rotate-left"></i> Restore Selected</a>
+      
         
         @else
           <p>No guardians found</p>
@@ -130,54 +130,7 @@
 
   @include('partials.script')
 
-  <script>
-   $(function() {
-  $("#select_all_ids").click(function() {
-    $('.checkbox_ids').prop('checked', $(this).prop('checked'));
-  });
 
-  $('#restoreSelected').click(function(e){
-    e.preventDefault();
-
-    var ids = [];
-
-    $(".checkbox_ids:checked").each(function(){
-      ids.push($(this).val());
-    });
-
-    if(ids.length > 0){
-      $.ajax({
-        url: "{{ route('guardians.restore.all') }}",
-        type: "POST",
-        data: {
-          ids: ids,
-          _token: '{{ csrf_token() }}'
-        },
-        success:function(response){
-          if(response.success) {
-           location.reload();
-           
-          }
-
-         
-        },
-        error:function(xhr, status, error) {
-          console.error(xhr.responseText);
-        }
-      });
-    } else {
-      alert('Please select at least one record to restore.');
-    }
-  });
-
-  $('.checkbox_ids').change(function() {
-    if (!$(this).prop("checked")) {
-      $("#select_all_ids").prop("checked", false);
-    }
-  });
-});
-
-  </script>
   
 </body>
 </html>

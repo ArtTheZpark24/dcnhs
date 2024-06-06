@@ -5,55 +5,43 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class GradesSubmitted extends Mailable
 {
     use Queueable, SerializesModels;
-      public $mailmessage;
-      public $subjectMail;
-    public $view;
+
+    public $mailmessage;
+    public $subjectMail;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($mailmessage,  $subjectMail)
+    public function __construct($mailmessage, $subjectMail)
     {
-        //
-
         $this->mailmessage = $mailmessage;
         $this->subjectMail = $subjectMail;
     }
 
     /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: $this->subject
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'mail.newgrade',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
+     * Get the notification's delivery channels.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @param  mixed  $notifiable
+     * @return array
      */
-    public function attachments(): array
+    public function via($notifiable)
     {
-        return [];
+        return ['mail'];
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->view('mail.newgrade')
+                    ->subject($this->subjectMail);
     }
 }

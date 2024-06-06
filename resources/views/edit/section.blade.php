@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 <a href="#edit{{ $section->id }}" class="btn" data-bs-toggle="modal" data-bs-target="#edit{{ $section->id }}">
-   <button class="btn btn-warning btn-sm">Edit</button>
+   <button class="btn btn-warning btn-sm d-flex gap-2"><i class="fa-solid fa-pencil mt-1"></i> Edit</button>
 </a>
 
 <!-- Modal -->

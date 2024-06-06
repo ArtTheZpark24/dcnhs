@@ -30,7 +30,7 @@
   <div class="card-header bg-primary text-white">
     <span>Strands</span>
   </div>
-  <div class="card-body table-responsive">
+  <div class="card-body">
 
     @include('add.strand')
 
@@ -41,9 +41,10 @@
 
   <div class="row">
 
-  <div>
+  <div class="table-responsive">
+    
       @if ($strands->count() > 0)
-      <table class="table table-bordered">
+      <table class="table table-bordered" id="strandTable">
 
   
         <thead>
@@ -70,25 +71,15 @@
 
           <div class="d-flex">
 
-          <a href="{{route('strand.class', ['strand'=> $data->strands, 'id' => $data->id])}}" > <button class="btn btn-sm btn-primary mt-2"> <i class="fa-solid fa-landmark"></i> Class</button></a>
+          <a href="{{route('strand.class', ['strand'=> $data->strands, 'id' => $data->id])}}" class="fap"> <button class="btn btn-sm btn-primary mt-2 d-flex gap-2"> <i class="fa-solid fa-landmark mt-1"></i> Class</button></a>
 
 
       <a href="{{ route('strandsub.index', ['id'=>$data->id]) }}" class="btn" 
-      data-bs-toggle="tooltip" data-bs-placement="top" title="Add subjects to {{ $data->strands }}"><button class="btn btn-sm btn-success"><i class="fa-solid fa-book"></i> Subjects</button></i></a>
+      data-bs-toggle="tooltip" data-bs-placement="top" title="Add subjects to {{ $data->strands }}"><button class="btn btn-sm btn-success d-flex gap-2"><i class="fa-solid fa-book mt-1"></i> Subjects</button></i></a>
        
         @include('edit.strand')
+        @include('confirm.stranddelete')
 
-        <form action="{{ route('strand.delete', ['id' => $data->id]) }}"method="POST">
-          @csrf
-          @method('DELETE')
-
-       <button class="btn btn-danger btn-sm mt-2" data-bs-placement="top" title="Delete {{ $data->strands }}">
- <i class="fa-solid fa-trash"></i>
-        Delete
- 
-        
-       </button>
-       </form>
         </td>
 
         </div>
