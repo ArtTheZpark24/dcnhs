@@ -72,7 +72,7 @@ class FirstGradeController extends Controller
         $grades = [];
     
 
-        for ($quarter = 1; $quarter <= 4; $quarter++) {
+        for ($quarter = 1; $quarter <= 2; $quarter++) {
       
             $writtenWorks = WrittenWork::select('ps', 'ws')
                 ->where('student_id', $student_id)

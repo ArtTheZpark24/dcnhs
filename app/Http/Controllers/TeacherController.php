@@ -134,6 +134,12 @@ class TeacherController extends Controller
 
         $data = Teacher::find($id);
 
+        if(!$data){
+
+        return view('error.error');
+
+        }
+
 
         $validatedData = $request->validate([
             'teacher_id' => 'numeric|required|digits:7|unique:teachers,teacher_id,' . $id,
@@ -145,7 +151,7 @@ class TeacherController extends Controller
             'sex' => 'nullable|in:Male,Female', 
             'birth_place' => 'nullable|string|max:255',
             'date_birth' => 'nullable|date',
-            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'email' => 'required|email|max:255|unique:teachers,email,' . $id,
             'phone_number' => 'nullable|string|digits:11|regex:/^09\d{9}$/',
             'street' => 'nullable|string|max:255',
             'brgy' => 'nullable|string|max:255',
@@ -209,6 +215,12 @@ class TeacherController extends Controller
 
         $data = Teacher::find($id);
 
+        if(!$data){
+
+        return view('error.error');
+
+        }
+
         $data->delete();
         return redirect()->back()->with('success', 'Teacher successfully deleted');
     }
@@ -217,7 +229,7 @@ class TeacherController extends Controller
 {
     $email = Auth::user()->email;
 
-    // Retrieve only trashed teachers
+
     $datasQuery = Teacher::onlyTrashed('id', 'teacher_id', 'lastname', 'firstname', 'middlename', 'email', 'sex', 'rank',
         'birth_place', 'date_birth', 'street', 'brgy', 'city', 'phone_number', 'state');
 
@@ -284,6 +296,7 @@ class TeacherController extends Controller
         }
 
         $teacher->password = bcrypt($teacher->teacher_id);
+        $teacher->update();
 
         return redirect()->back()->with('success', 'Password succesfully reset');
     }

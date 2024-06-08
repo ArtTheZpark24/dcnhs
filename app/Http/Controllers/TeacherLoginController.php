@@ -14,7 +14,7 @@ class TeacherLoginController extends Controller
     public function index()
     { 
         if(Auth::guard('teacher')->check()){
-            return redirect('/teacher/home');
+            return redirect('/teacher/dashboard');
         }
         
         return response()
@@ -75,7 +75,8 @@ $advisory = StudentSection::join('sections', 'sections.id', '=', 'student_sectio
 
 $subjects = Classes::join('strand_subjects', 'strand_subjects.id', '=', 'classes.strand_subject_id')
                     ->join('subjects', 'subjects.id', '=', 'strand_subjects.subject_id')
-                    ->select('subjects.subjects as subject', 'classes.time_start', 'classes.time_end')
+                    ->select('subjects.subjects as subject', 'classes.time_start as time_start', 'classes.time_end as time_end')
+                    ->where('teacher_id', $teacherId)
 ->get();
  
 

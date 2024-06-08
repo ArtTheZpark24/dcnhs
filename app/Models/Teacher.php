@@ -13,6 +13,7 @@ class Teacher extends User
     use HasFactory, SoftDeletes, Notifiable;
 
     protected $fillable = [
+        'teacher_id',
         'password',
         'lastname',
         'firstname',

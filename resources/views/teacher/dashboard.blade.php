@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Dashboard</title>
     @include('partials.css')
 </head>
 <body>
@@ -47,13 +47,20 @@
 @foreach ($subjects as $subject )
 
  <div class="col-md-3 widgets-item">
-    <p>
+    <h5>
     {{$subject->subject}}
-    </p>
 
-    <span class="widgets-count ">
+<em style="font-size: 16px;">
+    {{ \Carbon\Carbon::parse($subject->time_start)->format('g:i A') }} - {{ \Carbon\Carbon::parse($subject->time_end)->format('g:i A') }}
+</em>
+
+
+  
+    </h5>
+
+  
+
     
-    </span>
     </div>
 
   

@@ -55,11 +55,13 @@ class TeacherAuthInfoController extends Controller
     
 
 
-    public function promoteStudent($id, $section_id) {
-    $student = Student::find($id);
-      $section = StudentSection::find($section_id);
 
-    if (!$student) {
+
+public function promoteStudent($id, $section_id) {
+    $student = Student::find($id);
+    $section = StudentSection::find($section_id);
+
+    if (!$student || !$section) {
         return view('error.error');
     }
 
@@ -70,16 +72,18 @@ class TeacherAuthInfoController extends Controller
     if ($student->semester_id == $maxSemesterId) {
         $nextGradeLevelId = $student->grade_level_id + 1;
         if ($nextGradeLevelId <= $maxGradeLevelId) {
+     
+            $averageScore = $this->calculateAverageScore($student);
+
+            if ($averageScore < 74) {
+                return redirect()->back()->with('error', 'Student cannot be promoted due to low average score');
+            }
+
             $student->grade_level_id = $nextGradeLevelId;
             $student->semester_id = $minSemesterId;
-
         } else {
-         $schoolYear = SchoolYear::select('id')
-    ->where('status', 2)
-      ->first();
-              
-              
-           
+          
+            $schoolYear = SchoolYear::where('status', 2)->first();
             $student->status = 2;
 
             $graduate = new Graduate();
@@ -88,15 +92,27 @@ class TeacherAuthInfoController extends Controller
             $graduate->save();
         }
     } else {
-      
         $student->semester_id++;
     }
 
     $student->save();
     $section->delete();
 
-
     return redirect()->back()->with('success', 'Student ' . $student->lrn . ' successfully promoted');
+}
+
+private function calculateAverageScore($student) {
+    $selectedQuarters = [1, 2]; 
+
+    $grades = FinalGrade::where('student_id', $student->id)
+        ->whereIn('quarter', $selectedQuarters)
+        ->pluck('final_grade');
+
+    if ($grades->isEmpty()) {
+        return 0; 
+    }
+
+    return $grades->avg();
 }
 
 

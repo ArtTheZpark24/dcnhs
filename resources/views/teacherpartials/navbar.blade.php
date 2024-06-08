@@ -34,7 +34,7 @@
     <div class="dropdown mt-3">
       <ul class="item">
 
-        <li class="side-item"><a href="{{ route('teacher.dashboard') }}" class="active-link"><i class="fa-solid fa-house"></i> <span>Home</span></a></li>
+        <li class="side-item"><a href="{{ route('teacher.dashboard') }}" class="active-link"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a></li>
          <li class="side-item"><a href="{{ route('teacher.advisory') }}" class="active-link"><i class="fa-solid fa-children"></i> <span>Advisory</span></a></li>
          <li class="side-item"><a href="{{route('teacher.classes')}}" class="active-link"><i class="fa-solid fa-calendar-days"></i> <span>Classes</span></a></li>
          <li class="side-item"><a href="{{route('import.grades')}}" class="active-link"><i class="fa-solid fa-file-excel"></i> <span>Import Grades</span></a></li>
