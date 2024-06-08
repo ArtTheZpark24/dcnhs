@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SchoolYear;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,10 +76,20 @@ class SchoolyearController extends Controller
 
     public function delete($id){
 
-        $schoolYear= SchoolYear::find($id); 
+        $schoolYear = SchoolYear::find($id); 
+
+        if(!$schoolYear){
+
+        return view('error.error');
+
+        }
+
+          $yearStart = Carbon::parse($schoolYear->date_start)->format('Y');
+        $yearEnd = Carbon::parse($schoolYear->date_end)->format('Y');
+
 
         $schoolYear->delete();
-        return redirect()->back()->with('success', 'School Year deleted successfully.');
+         return redirect()->back()->with('success', 'SY ' . $yearStart . '-' . $yearEnd . ' is now deleted');
 
     }
     public function active($id){
@@ -104,7 +115,23 @@ class SchoolyearController extends Controller
         
 
         }
-       return redirect()->back()->withErrors('This school year cannot find');
+      return view('error.error');
 
+    }
+    public function deactive($id)
+    {
+        $schoolYear = SchoolYear::find($id);
+
+        if (!$schoolYear) {
+            return view('error.error');
+        }
+
+        $schoolYear->status = 1;
+        $schoolYear->save();
+
+      $yearStart = Carbon::parse($schoolYear->date_start)->format('Y');
+        $yearEnd = Carbon::parse($schoolYear->date_end)->format('Y');
+
+        return redirect()->back()->with('success', 'SY ' . $yearStart . '-' . $yearEnd . ' is now inactive');
     }
 }

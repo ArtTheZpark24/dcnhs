@@ -87,6 +87,6 @@ $subjects = Classes::join('strand_subjects', 'strand_subjects.id', '=', 'classes
 
     Auth::guard('teacher')->logout();
     
-     return redirect('/teacher/login');
+    return redirect('/login/page');
   }
 }

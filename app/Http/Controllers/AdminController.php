@@ -76,7 +76,7 @@ $resignedTeachers = Teacher::onlyTrashed()->count();
 
         $semesters = Semester::select('id', 'semester')->get();
 
-
+    
 
         
         return view('admin.dashboard', compact('email',
@@ -92,7 +92,7 @@ $resignedTeachers = Teacher::onlyTrashed()->count();
     public function adminLogout()
     {
         auth()->logout();
-        return redirect('/');
+        return redirect('/login/page');
     }
        public function addAdmin(){
 

@@ -27,7 +27,13 @@
      
 <div class="card">
     <div class="card-body">
+
+        
     @include('partials.message')
+
+      <a href="{{route('student.guardian.index', ['id' =>$guardian->id])}}" class="btn btn-sm btn-success gap-2 d-flex mt-2 mb-5" style="width: 150px;">
+                                                <i class="fa-solid fa-graduation-cap mt-1"></i> Add Student
+                                            </a>
 
         <h5 class="mb-3">{{$guardian->firstname}} {{ $guardian->lastname }} student(s)</h5>
 
@@ -47,11 +53,7 @@
         
         <td>{{$stud->lastname}}, {{ $stud->firstname }} {{ $stud->middle_initial }}.</td>
         <td>
-         <form action="{{ route('student.guardian.delete', ['id' => $stud->id]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
-                </form>
+         @include('confirm.studenguardiandelete')
 
         
     @endforeach

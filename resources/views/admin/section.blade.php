@@ -59,9 +59,9 @@
                 <td>
                     
                     <div class="d-flex">
-                    <a href="{{ route('section.student.index', ['strand_id'=> $section->strand_id, 'grade_level_id'=> $section->grade_level_id, 'section_id' => $section->id]) }}" class=" d-flex justify-content-center align-items-center">
-    <button class="btn btn-success btn-sm d-flex gap-2"><i class="fa-solid fa-graduation-cap mt-1"></i> Students</button
-</a>
+                   <a  class="btn btn-success btn-sm d-flex gap-2 mt-2" style="height: 35px;" href="{{ route('section.student.index', ['strand_id'=> $section->strand_id, 'grade_level_id'=> $section->grade_level_id, 'section_id' => $section->id]) }}">
+                   <i class="fa-solid fa-graduation-cap mt-1"></i> Student
+                   </a>
 
                     @include('edit.section')
                    @include('confirm.sectiondelete')

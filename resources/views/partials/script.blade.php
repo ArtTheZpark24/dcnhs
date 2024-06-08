@@ -53,3 +53,11 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#searchTable').DataTable({
+          
+        });
+    });
+</script>
+

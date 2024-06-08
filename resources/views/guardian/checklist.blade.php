@@ -7,21 +7,21 @@
     @include('partials.css')
 </head>
 <body>
+  @include('guardianpartial.navbar')
 
-@include('guardianpartial.navbar')
-  
+
 <div class="wrapper">
   @include('partials.maincontent')
-  
+
   <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-primary text-white">
       Checklist
     </div>
     <div class="card-body">
       @foreach ($gradeLevels as $level)
         @foreach ($semesters as $semester)
           <div class="card mt-5">
-            <div class="card-header">
+            <div class="card-header ">
               <span>Grade list for grade {{ $level->level }} {{ $semester->semester }}</span>
             </div>
             <div class="card-body">
@@ -33,7 +33,7 @@
                 <thead>
                   <tr>
                     <th>Subjects</th>
-                    <th>Final grade</th>
+                    <th>Average</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,10 +43,8 @@
                         <td>{{ $subject->subject }}</td>
                         <td>
                           @if ($subject->has_grades)
-                         
-                            {{ $subject->final_grade }}
+                            {{ number_format($subject->average_grade, 2) }}
                           @else
-                           
                             No grades
                           @endif
                         </td>

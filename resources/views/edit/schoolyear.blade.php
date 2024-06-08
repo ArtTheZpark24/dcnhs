@@ -1,3 +1,7 @@
+<a href="#" class="btn link-warning btn-sm mt-1" data-bs-toggle="modal" data-bs-target="#editModal{{ $schoolYear->id }}">
+  <button class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i> Edit</button>
+</a>
+
 <div class="modal fade" id="editModal{{ $schoolYear->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

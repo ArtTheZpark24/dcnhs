@@ -13,36 +13,11 @@
 <div class="wrapper">
     @include('partials.maincontent')
 
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-
-            Students enrolled in {{ $strand->strands }} {{ $level->level }}
-        </div>
-        <div class="card-body">
-          @include('partials.message');
-            <form action="{{ route('section.student.add', ['section_id' => $section->id]) }}" method="post">
-                @csrf
-
-                <ul>
-                    @foreach ($students as $student)
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="student_{{ $student->id }}" name="student_id[]" value="{{ $student->id }}"
-                              {{in_array($student->id,  $pluckSection->pluck('student_id')->toArray()) ? 'disabled' : ''}}>
-                           
-                            <label class="form-check-label" for="student_{{ $student->id }}">
-                                {{ $student->lastname }}, {{ $student->firstname }} {{ $student->middlename }} ({{ $student->lrn }})
-                            </label>
-                        </div>
-                    @endforeach
-
-                  
-                </ul>
-
-                <button type="submit" class="btn btn-primary mt-3">Add to <span class="text-lowercase">{{ $section->section_name }}</span> section</button>
-            </form>
-        </div>
-    </div>
-
+   
+          @include('partials.message')
+          @include('add.addstudsec')
+           
+      
 
      <div class="card mt-5">
         <div class="card-header bg-primary text-white">
@@ -66,12 +41,7 @@
           <tr>
           <td> {{$stud->lastname}}, {{$stud->firstname}} {{$stud->middlename}}({{$stud->lrn}})</td>
           <td>
-         <form action="{{ route('section.student.delete', ['id' => $stud->id]) }}" method="POST">
-         @method('DELETE')
-         @csrf
-
-          <button class="btn btn-danger btn-sm">Delete</button>
-          </form>
+          @include('confirm.studsecdelete')
           </td>
           </tr>
               

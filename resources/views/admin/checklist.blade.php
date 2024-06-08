@@ -33,7 +33,7 @@
                 <thead>
                   <tr>
                     <th>Subjects</th>
-                    <th>Final grade</th>
+                    <th>Average</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -41,13 +41,12 @@
                     @if ($subject->grade_level_id == $level->id && $subject->semester_id == $semester->id)
                       <tr>
                         <td>{{ $subject->subject }}</td>
+                      
                         <td>
                           @if ($subject->has_grades)
-                         
-                            {{ $subject->final_grade }}
+                            {{ number_format($subject->average_grade, 2) }}
                           @else
-                           
-                            No grades
+                            No Grades
                           @endif
                         </td>
                       </tr>
@@ -59,7 +58,7 @@
 
                   @if (!$subjectsFound)
                     <tr>
-                      <td colspan="2">No subjects found for this grade level and semester.</td>
+                      <td colspan="3">No subjects found for this grade level and semester.</td>
                     </tr>
                   @endif
                 </tbody>

@@ -103,11 +103,9 @@
                                         @include('confirm.guardiandelete')
                                         @include('confirm.guardianreset')
                                       
-                                        <div>
-                                            <a href="{{route('student.guardian.index', ['id' =>$data->id])}}" class="btn btn-sm btn-success gap-2 d-flex mt-2">
-                                                <i class="fa-solid fa-graduation-cap mt-1"></i>Student
-                                            </a>
-                                        </div>
+                                        <a href="{{ route('student.guardian.list', ['id' => $data->id]) }}" class="btn btn-sm btn-success gap-2 d-flex mt-2">
+                 <i class="fa-solid fa-graduation-cap mt-1"></i> Student(s)
+            </a>
                                     </div>
                                 </td>
                             </tr>

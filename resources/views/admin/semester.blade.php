@@ -31,6 +31,8 @@
     Semester Status
   </div>
   <div class="card-body table-responsive">
+
+    @include('partials.message')
    @if ($semesters->count() > 0)
 
    <table class="table table-bordered">
@@ -51,18 +53,10 @@
         
           <div class="d-flex">
             @if ($semester->status == 'active')
-            <form action="{{ route('semester.deactive.status', ['id' => $semester->id]) }}" method="POST">
-              @csrf
-              @method('PUT')
-           <button class="btn btn-success btn-sm mt-2">Active</button>
-          </form>
+            @include('confirm.semesterdeac')
            
             @else
-            <form action="{{ route('semester.active.status', ['id' => $semester->id]) }}" method="POST">
-              @csrf
-              @method('PUT')
-          <button class="btn btn-secondary btn-sm mt-2">Inactive</button>
-          </form>
+            @include('confirm.semesteractive')
             @endif
 
         

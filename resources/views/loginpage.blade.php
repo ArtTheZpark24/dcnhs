@@ -23,7 +23,7 @@
         display: flex;
         flex-direction: column; 
         gap: 16px;
-        width: 400px;
+        width: 300px;
         
     }
     
@@ -35,35 +35,24 @@
       <a class="navbar-brand" href="{{route('home.index')}}">
       <img src="{{ asset('images/logo.png') }}" alt="school-logo" class="school-logo">
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{ route('home.index') }}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
+    
       
-          
-        </ul>
         
 
         <a href="{{ route('home.loginpage') }}" class="btn btn-primary">Login</a>
         
-      </div>
+      
     </div>
   </nav>
   <div class="wrapper">
     <div class="content" id="main-content">
     <div class="card shadow-lg">
         <div class="card-body">
-         <a href="{{ route('admin.login') }}" class="btn btn-primary bg-gradient">Administrator</a>
-         <a href="{{ route('teacher.index') }}" class="btn btn-primary bg-gradient">Teacher</a>
-         <a href="{{ route('student.login') }}" class="btn btn-success bg-gradient">Student</a>
-         <a href="{{ route('guardian.login') }}" class="btn btn-success bg-gradient">Guardian</a>
+          <h5 class="text-center fw-bold">Log in as</h5>
+         <a href="{{ route('admin.login') }}" class="btn btn-primary bg-gradient"><i class="fa-solid fa-lock"></i> Administrator</a>
+         <a href="{{ route('teacher.index') }}" class="btn btn-primary bg-gradient"><i class="fa-solid fa-chalkboard-user"></i> Teacher</a>
+         <a href="{{ route('student.login') }}" class="btn btn-success bg-gradient"><i class="fa-solid fa-graduation-cap"></i> Student</a>
+         <a href="{{ route('guardian.login') }}" class="btn btn-success bg-gradient"><i class="fa-solid fa-person-breastfeeding"></i> Guardian</a>
          
         </div>
     </div>

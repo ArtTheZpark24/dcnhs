@@ -165,14 +165,16 @@ Route::delete('/admin/add/strand/delete/{id}', [StrandController::class, 'delete
      Route::get('admin/school/year', [SchoolyearController::class, 'index'])->name('school.year');
      Route::post('admin/school/year', [SchoolyearController::class, 'schoolYearPost'])->name('school.year.post');
       Route::put('admin/school/year/update/{id}', [SchoolyearController::class, 'update'])->name('school.year.update');
-     Route::put('admin/school/year/active/{id}', [SchoolyearController::class, 'active'])->name('school.year.active');
+     Route::post('admin/school/year/active/{id}', [SchoolyearController::class, 'active'])->name('school.year.active');
+       Route::post('admin/school/year/deactive/{id}', [SchoolyearController::class, 'deactive'])->name('school.year.deactive');
+       Route::delete('admin/school/year/delete/{id}', [SchoolyearController::class, 'delete'])->name('school.year.delete');
 
     //Semester Route
 
     Route::get('admin/semester/', [SemesterController::class, 'index'])->name('semester');
     Route::post('admin/semester/', [SemesterController::class, 'create'])->name('semester.add.post');
-    Route::put('admin/semester/status/deactive/{id}', [SemesterController::class,  'deactive'])->name('semester.deactive.status');
-    Route::put('admin/semester/status/active/{id}', [SemesterController::class,  'active'])->name('semester.active.status');
+    Route::post('admin/semester/status/deactive/{id}', [SemesterController::class,  'deactive'])->name('semester.deactive.status');
+    Route::post('admin/semester/status/active/{id}', [SemesterController::class,  'active'])->name('semester.active.status');
     Route::put('admin/semester/update/{id}', [SemesterController::class,  'update'])->name('semester.update');
     
 
@@ -345,7 +347,6 @@ Route::put('/teacher/input/grade/student/assessment/update/{student_id}/{subject
 
 //promote students
 Route::put('/student/promote/{id}/{section_id}', [TeacherAuthInfoController::class, 'promoteStudent'])->name('student.promote');
-Route::put('/students/promote/all', [TeacherAuthInfoController::class, 'promoteAll'])->name('students.promote.all');
 
 //profile and change password
 Route::get('/teacher/profile', [TeacherAuthInfoController::class, 'profile'])->name('teacher.profile');

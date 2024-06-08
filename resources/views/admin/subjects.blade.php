@@ -27,7 +27,7 @@
 
       
 <div class="card mt-5">
-  <div class="card-header bg-primary text-white">
+  <div class="card-header bg-primary text-white" >
     All subjects of senior high school
   </div>
   <div class="card-body">
@@ -36,7 +36,7 @@
     <div class="row">
      @if ($subjects->count() > 0)
      <div class="table-responsive">
-     <table class="table table-bordered">
+     <table class="table table-bordered" id="searchTable">
   <thead>
     <tr>
       <th>Subject</th>

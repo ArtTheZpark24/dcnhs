@@ -44,25 +44,16 @@
                     <td>{{$student->lastname}}, {{$student->firstname}} ({{$student->lrn}})</td> 
                   
                     <td>
-                        <form action="{{ route('student.promote', ['id' => $student->id, 'section_id' => $student->section_id]) }}" method="POST">
-                            @csrf 
-                            {{-- Use the hidden input field to override method --}}
-                            <input type="hidden" name="_method" value="PUT">
-                            <button type="submit" class="btn btn-primary btn-sm">Promote</button>
-                        </form>
+                       
+                            @include('confirm.promoteconfirm')
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
         
-        {{-- Use the same method but different route --}}
-        <form action="{{route('students.promote.all')}}" method="POST">
-            @csrf
-            {{-- Use the hidden input field to override method --}}
-            <input type="hidden" name="_method" value="PUT">
-            <button type="submit" class="btn btn-primary btn-sm mt-3">Promote all students</button>
-        </form>
+ 
+       
 
         @else 
         <p>No students found</p>
