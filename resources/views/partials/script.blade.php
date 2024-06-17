@@ -55,8 +55,15 @@
 
 <script>
     $(document).ready(function() {
+        if ($.fn.DataTable.isDataTable('#searchTable')) {
+    $('#searchTable').DataTable().destroy();
+}
+       columnDefs: [{
+                    "defaultContent": "-",
+                    "targets": "_all"
+                }],
         $('#searchTable').DataTable({
-          
+           searching: true,
         });
     });
 </script>

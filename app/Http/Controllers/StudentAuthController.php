@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classes;
 use App\Models\FinalGrade;
+use App\Models\StrandSubject;
 use App\Models\Student;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
@@ -27,16 +28,13 @@ class StudentAuthController extends Controller
         $studentId = Auth::guard('student')->user()->id;
         $studentAuth = Student::find($studentId);
     
-        $subjects = Subject::join('strand_subjects', 'subjects.id', '=', 'strand_subjects.subject_id')
-                           ->join('strands', 'strands.id', '=', 'strand_subjects.strand_id')
-                           ->join('semesters', 'semesters.id', '=', 'strand_subjects.semester_id')
-                           ->select('subjects.subjects as subject')
-                           ->where('semesters.id', $studentAuth->semester_id)
-                           ->where('semesters.status', 'active')
-                           ->where('strands.id', $studentAuth->strand_id)
-                           ->where('strand_subjects.grade_level_id', $studentAuth->grade_level_id)
-                           ->orderBy('subjects.subjects')
-                           ->get();
+        $subjects = StrandSubject::join('subjects', 'subjects.id', 'strand_subjects.subject_id')
+                                   ->join('semesters', 'semesters.id', 'strand_subjects.semester_id')
+                                    ->select('subjects.subjects as subject')
+                                    ->where('strand_subjects.strand_id', $studentAuth->strand_id)
+                                    ->where('semesters.status', 'active')
+                                    ->where('strand_subjects.grade_level_id', $studentAuth->grade_level_id)
+                                    ->get();
     
         return view('students.subjects', compact('subjects'));
     }
@@ -96,8 +94,7 @@ class StudentAuthController extends Controller
                                      DB::raw('SUBSTRING(teachers.middlename, 1, 1) as initial'),
                                      'classes.day as day',
                                      'subjects.subjects as subject')
-                            ->where('student_sections.student_id', $student->id)
-                            ->where('classes.semester_id', $student->semester_id )
+                            ->where('student_sections.student_id',  $studentId)
                             ->where('semesters.status', 'active')
                             ->get();
 

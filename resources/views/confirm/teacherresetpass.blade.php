@@ -16,7 +16,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form action="{{ route('teachers..reset.password', ['id' => $data->id]) }}" method="POST">
+                <form action="{{ route('teachers.reset.password', ['id' => $data->id]) }}" method="POST">
                     @csrf
                     @method('POST')
                     <button type="submit" class="btn btn-primary">Reset</button>

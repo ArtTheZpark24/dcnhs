@@ -36,13 +36,15 @@
 
     <tbody>
     @foreach ( $finalGrades as $grade )
+
+    <tr>
     <td>{{$grade->final_grade}}</td>
     <td>{{$grade->subject}}</td>
     <td>{{$grade->semester}}</td>
     <td>{{$grade->quarter}}</td>
     <td>{{$grade->level}}</td>
     <td>{{$grade->lastname}}, {{$grade->firstname}} {{$grade->middlename}}</td>
-    
+    </tr>
         
     @endforeach
     </tbody>

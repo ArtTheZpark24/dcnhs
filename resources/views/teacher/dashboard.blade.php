@@ -50,7 +50,7 @@
     <h5>
     {{$subject->subject}}
 
-<em style="font-size: 16px;">
+<em style="font-size: 10px;">
     {{ \Carbon\Carbon::parse($subject->time_start)->format('g:i A') }} - {{ \Carbon\Carbon::parse($subject->time_end)->format('g:i A') }}
 </em>
 

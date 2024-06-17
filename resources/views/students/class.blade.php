@@ -21,13 +21,15 @@
       
 <div class="card ">
     <div class="card-header bg-primary text-white" >
-     Class
+     Class(es)
     </div>
     <div class="card-body">
        
       <div class="table-responsive">
      
-    <table class="table table-bordered">
+   @if($classes->count() > 0)
+
+    <table class="table table-bordered" id="searchTable">
 
         <thead>
         <tr>
@@ -57,6 +59,12 @@
 
     </div>
   </div>
+
+  @else
+
+  <p>No classes found</p>
+
+  @endif
 
 
 

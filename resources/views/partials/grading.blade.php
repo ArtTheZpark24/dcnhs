@@ -5,6 +5,7 @@
 <table class="table table-bordered mt-3" >
     <thead>
         <tr>
+         
             <th>Student name</th>
             <th>Strand</th>
             <th>Subject</th>
@@ -19,6 +20,7 @@
     <tbody>
         @foreach ($finalGrades as $grade)
         <tr>
+       
             <td>{{ $grade->stud_lastname }}, {{ $grade->stud_firstname }} {{ $grade->stud_middlename }}.</td>
             <td>{{ $grade->strand }} - {{ $grade->level }}</td>
             <td>{{ $grade->subject }}</td>
@@ -57,6 +59,6 @@
 </form>
 
 
-{{ $finalGrades->appends(request()->query())->links('pagination::bootstrap-5') }}
+
 
 </div>

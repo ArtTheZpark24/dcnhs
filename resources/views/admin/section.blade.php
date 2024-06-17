@@ -33,7 +33,7 @@
             @include('add.section')
             @include('partials.message')
 
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="searchTable">
 
                 <thead>
                     <tr>

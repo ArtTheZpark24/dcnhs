@@ -108,7 +108,7 @@ class GradingController extends Controller
         $datasQuery->where('final_grades.school_year_id', $yearActive);
     }
 
-    $finalGrades = $datasQuery->paginate(30);
+    $finalGrades = $datasQuery->paginate(10);
 
     if ($request->ajax()) {
         return view('partials.grading', compact('finalGrades'))->render();
@@ -145,6 +145,7 @@ class GradingController extends Controller
     $existingGrades = FinalGrade::where('student_id', $finalGrades->student_id)
                                 ->where('quarter', $quarter)
                                 ->where('status', 2)
+                                ->where('subject_id', $finalGrades->subject_id)
                                 ->first();
 
     if ($existingGrades) {
@@ -153,6 +154,8 @@ class GradingController extends Controller
 
     $finalGrades->status = 2;
     $finalGrades->save();
+
+     return redirect()->back()->with('success', 'Grade successfully posted');
 
  
     $student->notify(new GradePosted($finalGrades));

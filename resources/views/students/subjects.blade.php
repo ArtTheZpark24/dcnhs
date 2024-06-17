@@ -3,66 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subjects</title>
+    <title>Checklist</title>
     @include('partials.css')
 </head>
 <body>
 
-  @include('studentpartials.navbar')
+@include('studentpartials.navbar')
   
-
-
-  <div class="wrapper">
-    
-
-
-
-@include('partials.maincontent')
-      
-<div class="card">
-    <div class="card-header text-white bg-primary" >
-    Subjects enrolled
+<div class="wrapper">
+  @include('partials.maincontent')
+  
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      Checklist
     </div>
     <div class="card-body">
- @if($subjects->count() > 0)
+      @foreach ($gradeLevels as $level)
+        @foreach ($semesters as $semester)
+          <div class="card mt-5">
+            <div class="card-header">
+              <span>Grade list for grade {{ $level->level }} {{ $semester->semester }}</span>
+            </div>
+            <div class="card-body">
+              @php
+                $subjectsFound = false;
+              @endphp
 
-  <table class="table table-bordered">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Subjects</th>
+                    <th>Average</th>
+                    <th>Remarks</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($strandSubjects as $subject)
+                    @if ($subject->grade_level_id == $level->id && $subject->semester_id == $semester->id)
+                      <tr>
+                        <td>{{ $subject->subject }}</td>
+                        <td>
+                          @if ($subject->has_grades && isset($subject->average_grade))
+                            {{ number_format($subject->average_grade, 2) }}
+                          @else
+                           No Grades
+                          @endif
+                        </td>
+                        <td>
+                          @if ($subject->has_grades && isset($subject->average_grade))
+                            @if ($subject->average_grade < 75)
+                              Failed
+                            @else
+                              Passed
+                            @endif
+                          @else
+                            N/A
+                          @endif
+                        </td> 
+                      </tr>
+                      @php
+                        $subjectsFound = true;
+                      @endphp
+                    @endif
+                  @endforeach
 
-    <thead>
-    <tr>
-    
- 
-    </tr>
-    </thead>
-
-    <tbody>
-    @foreach ($subjects as $subject )
-
-    <tr>
-    <td>{{$subject->subject}}</td>
-    </tr>
-        
-    @endforeach
-    </tbody>
-
- </table>
- 
-
- @else
- <p>No subject found</p>
- @endif
-  </div>
-
-
-
-
-    
+                  @if (!$subjectsFound)
+                    <tr>
+                      <td colspan="3">No subjects found for this grade level and semester.</td>
+                    </tr>
+                  @endif
+                </tbody>
+              </table>
+            </div>
+          </div>
+        @endforeach
+      @endforeach
     </div>
   </div>
-    
- @include('partials.script')
+</div>
 
+@include('partials.script')
 
-</script>
 </body>
 </html>

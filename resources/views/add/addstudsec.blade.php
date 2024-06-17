@@ -12,9 +12,9 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              <form action="{{ route('section.student.add', ['section_id' => $section->id]) }}" method="post">
+              <form action="{{ route('section.student.add', ['section_id' => $section->id]) }}" method="post" >
                   @csrf
-                  <table class="table table-bordered">
+                  <table class="table table-borderless" id="searchTable">
                       <thead>
                           <tr>
                               <th>Student list</th>

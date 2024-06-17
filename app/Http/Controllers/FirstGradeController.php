@@ -100,6 +100,7 @@ class FirstGradeController extends Controller
       
             
     $gradeScale = [
+               ['min' => 100, 'max' => 100, 'final_grade' => 100],
                 ['min' => 98.40, 'max' => 99.99, 'final_grade' => 99],
                 ['min' => 96.80, 'max' => 98.39, 'final_grade' => 98],
                 ['min' => 95.20, 'max' => 96.79, 'final_grade' => 97],

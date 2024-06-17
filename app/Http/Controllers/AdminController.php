@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FinalGrade;
+use App\Models\GradeLevel;
 use App\Models\Guardian;
+use App\Models\SchoolYear;
 use App\Models\Semester;
+use App\Models\Strand;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use PhpParser\Node\Stmt\Finally_;
 
 class AdminController extends Controller
 {
@@ -61,7 +67,7 @@ class AdminController extends Controller
         ])->withInput($request->only('email', 'remember-me'));
     }
 
-    public function adminDashboard()
+    public function adminDashboard(Request $request)
     
     {
 
@@ -73,20 +79,134 @@ $resignedTeachers = Teacher::onlyTrashed()->count();
     $studentFemale = Student::where('sex', 'Female')->count();
         $email = Auth::user()->email;
 
+      $semesters = Semester::select('id', 'semester')->get();
 
-        $semesters = Semester::select('id', 'semester')->get();
+    
+
+
+   $query = FinalGrade::join('students', 'students.id', '=', 'final_grades.student_id')
+    ->join('semesters', 'semesters.id', '=', 'final_grades.semester_id')
+    ->join('strands', 'strands.id', '=', 'students.strand_id')
+    ->join('grade_levels', 'grade_levels.id', 'final_grades.grade_level_id')
+    ->join('school_years', 'school_years.id', '=', 'final_grades.school_year_id')
+    
+    ->select(
+        'students.id as student_id',
+        'students.firstname as firstname',
+        'students.lastname as lastname',
+        'students.middlename as middlename',
+        'strands.strands as strand',
+        'final_grades.subject_id',
+        'grade_levels.level as level',
+        DB::raw('AVG(final_grades.final_grade) as subject_average_grade')
+    )
+    ->whereIn('final_grades.quarter', [1, 2]) 
+    ->groupBy('students.id', 'students.firstname', 'grade_levels.level',
+    'students.lastname', 'strands','students.middlename', 'final_grades.subject_id')
+    ->havingRaw('COUNT(DISTINCT final_grades.quarter) = 2')
+    ->where('final_grades.final_grade', '>=', 85);
+   
+    
+
+ 
+
+    if ($request->has('semester_id')) {
+        $semester = $request->input('semester_id');
+        $query->where('final_grades.semester_id', $semester);
+    } else {
+        $query->where('semesters.status', 'active');
+    }
+
+    if ($request->has('school_year_id')) {
+        $schoolYear = $request->input('school_year_id');
+        $query->where('final_grades.school_year_id', $schoolYear);
+    } else {
+        $query->where('school_years.status', 2);
+    }
+
+    if ($request->has('strand_id')) {
+        $strand = $request->input('strand_id');
+        $query->where('students.strand_id', $strand);
+    }
+
+    if ($request->has('level_id')) {
+        $level = $request->input('level_id');
+        $query->where('final_grades.grade_level_id', $level);
+    }
+
+
+       $subjectAverages = $query->paginate(10);
+        $sumAvg = $subjectAverages->sum('subject_average_grade');
+
+ $divisor = $subjectAverages->count();
+   $semesters = Semester::select('semester', 'status', 'id')->get();
+
+   $strands = Strand::select('strands', 'description', 'id')->orderBy('strands')->get();
+   $levels = GradeLevel::select('level', 'id')->orderBy('level')->get();
+
+       if($divisor == 0){
+
+$result = 0;
+
+}
+
+else{
+$result =  $sumAvg / $divisor ;
+}
+
+$showResult = false;
+
+if($result >= 90){
+
+$showResult = true;
+
+}
+
+else{
+ $showResult = false;
+}
+
+
+
+       if($request->ajax()){
+       
+
+       return view('partials.achievers', compact('subjectAverages', 'showResult', 'result'));
+
+       }
+
+
+
+
+  $schoolYears = SchoolYear::select(  DB::raw('YEAR(date_start) as year_start'),
+            DB::raw('YEAR(date_end) as year_end'), 'id', 'status')->get();
+
+
+
+
+
 
     
 
         
         return view('admin.dashboard', compact('email',
+        'semesters',
+        'subjectAverages',
          'totalStudents',
           'totalTeachers', 
           'totalParents',
           'resignedTeachers', 
           'studentMale', 
           'studentFemale',
-          'semesters'));
+          'semesters',  
+          'result',
+          'divisor',
+          'schoolYears',
+          'showResult',
+          'strands',
+          'levels'
+          
+        ));
     }
 
     public function adminLogout()

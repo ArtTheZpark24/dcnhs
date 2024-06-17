@@ -104,7 +104,7 @@ Route::put('admin/teachers/update{id}', [TeacherController::class, 'update'])->n
 Route::delete('admin/teachers/delete{id}', [TeacherController::class, 'delete'])->name('teachers.data.delete');
 Route::get('admin/teachers/archive', [TeacherController::class, 'archive'])->name('teachers.data.archive');
 Route::patch('admin/teachers/archive/{id}', [TeacherController::class, 'restore'])->name('teachers.data.restore');
-Route::post('admin/teachers/password/rest/{id}', [TeacherController::class, 'resetPass'])->name('teachers..reset.password');
+Route::post('admin/teachers/password/rest/{id}', [TeacherController::class, 'resetPass'])->name('teachers.reset.password');
 //guardian route
 
 Route::get('admin/create/guardians', [GuardianController::class, 'index'])->name('guardians.create');
@@ -196,8 +196,9 @@ Route::delete('admin/grades/delete/{id}', [GradingController::class, 'delete'])-
 
 Route::get('admin/school/classes', [AddClassController::class, 'schoolClasses'])->name('admin.school.classes');
 
+
 //add class to strand
-Route::get('admin/classes/fetch/data{id}', [AdminController::class, 'fetchdata'])->name('classes.fetchdata');
+
 Route::get('admin/classes/strand/{strand}/{id}', [AddClassController::class, 'index'])->name('strand.class');
 Route::post('admin/classes/strand/create/{id}', [AddClassController::class, 'create'])->name('strand.class.create');
 Route::put('admin/classes/strand/update/{id}', [AddClassController::class, 'update'])->name('strand.class.update');

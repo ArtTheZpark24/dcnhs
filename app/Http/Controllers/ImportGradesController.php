@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Imports\GradesImport;
 use App\Mail\GradesSubmitted;
 use App\Models\Classes;
-use App\Models\FinalGrade; // Add this line
+use App\Models\FinalGrade; 
 use App\Models\User;
 use App\Notifications\NewGradesSubmitted;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException; // Add this line
+use Illuminate\Validation\ValidationException; 
 use Maatwebsite\Excel\Facades\Excel;
 
 class ImportGradesController extends Controller
@@ -36,7 +36,7 @@ class ImportGradesController extends Controller
            $validatedData = $request->validate([
     'file' => 'required|mimes:xls,xlsx',
     'subject_id' => 'required|exists:subjects,id',
-    'quarter' => 'required|integer|in:1,2,3,4'
+    'quarter' => 'required|integer|in:1,2,',
 ], [
     'file.required' => 'The file field is required.',
     'file.mimes' => 'The file must be a valid Excel file (xls, xlsx).',
@@ -65,12 +65,13 @@ $teacher = Auth::guard('teacher')->user();
 
 
  $message['grades'] = "New Grades submitted by: " . $teacher->firstname . " " . $teacher->lastname;
+ $subject = "Grades submitted";
 
 foreach($admins as $admin){
 
   
 
-     $admin->notify(new NewGradesSubmitted($message));
+     $admin->notify(new NewGradesSubmitted($subject, $message));
 
 
      

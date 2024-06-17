@@ -83,7 +83,7 @@
 
         
          <div class="table-responsive" >
-            <table class=" " style="font-size: 14px;" id="dataTable">
+            <table class="table table-bordered" style="font-size: 14px;" id="dataTable" >
 
                 <thead>
             <tr>

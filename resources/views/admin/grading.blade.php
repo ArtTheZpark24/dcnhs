@@ -17,11 +17,13 @@
   
     @include('partials.maincontent')
 
+
+
     <div class="card mt-5">
         <div class="card-header bg-primary text-white d-flex gap-5 justify-content-between align-items-center">
             <span>Student Grade List</span>
         </div>
-        <div class="card-body table-responsive">
+        <div class="card-body">
             <form id="filter-form">
                 <div class="row">
                     <div class="col-md-2">
@@ -66,15 +68,32 @@
                             <option disabled selected>Quarter</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
+                          
                         </select>
                     </div>
                 </div>
             </form>
+
             
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
             <div id="gradingTableContainer">
                 @include('partials.grading')
+               
             </div>
             {{ $finalGrades->appends(request()->query())->links('pagination::bootstrap-5') }}
 
