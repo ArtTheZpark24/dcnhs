@@ -64,15 +64,13 @@ class ImportGradesController extends Controller
 $teacher = Auth::guard('teacher')->user();
 
 
- $message['grades'] = "New Grades submitted by: " . $teacher->firstname . " " . $teacher->lastname;
- $subject = "Grades submitted";
+ $mailMessage = "New Grades submitted by: " . $teacher->firstname . " " . $teacher->lastname;
+ $subjectMail = "Grades submitted";
 
 foreach($admins as $admin){
 
-  
 
-     $admin->notify(new NewGradesSubmitted($subject, $message));
-
+     $admin->notify(new NewGradesSubmitted($subjectMail,  $mailMessage));
 
      
 

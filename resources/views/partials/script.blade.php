@@ -68,3 +68,34 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#gradesExport').DataTable({
+            "paging": false,
+            "ordering": true,
+            "info": false,
+            "searching": false, 
+            dom: 'Bfrtip',
+           
+             "language": {
+                "emptyTable": "Import format here"
+            },
+        
+
+            
+            buttons: [
+               
+                {
+               
+                    extend: 'excelHtml5',
+                     text: '<i class="fa-solid fa-file-excel"></i> Download format here',
+                     className: 'btn btn-success sticky-exportExcel btn-sm'
+                  
+                }
+               
+              
+               
+            ]
+        });
+    });
+</script>

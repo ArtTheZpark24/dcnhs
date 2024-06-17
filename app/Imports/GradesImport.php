@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Classes;
 use App\Models\FinalGrade;
 use App\Models\Student;
 use App\Models\Semester;
@@ -32,30 +33,25 @@ class GradesImport implements ToModel, WithHeadingRow, SkipsOnFailure
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function model(array $row)
-    
     {
-
         if (empty(array_filter($row))) {
             return null;
         }
+
         try {
-           
             $teacherId = Auth::guard('teacher')->user()->id;
 
-            $semester = Semester::where('status', 'active')->first();
-            if (!$semester) {
-                throw new \Exception('Active semester not found');
+            $semester = Semester::where('status', 'active')->firstOrFail();
+
+            $student = Student::where('lrn', $row['lrn'])->firstOrFail();
+
+          
+            $class = $this->getClassForStudent($teacherId, $student);
+            if (!$class) {
+                throw new \Exception('Student ' . $student->lrn . ' does not belong to the teacher\'s assigned class for this subject.');
             }
 
-            $student = Student::where('lrn', $row['lrn'])->select('grade_level_id', 'id')->first();
-            if (!$student) {
-                throw new \Exception('Student not found');
-            }
-
-            $schoolYear = SchoolYear::where('status', 2)->first();
-            if (!$schoolYear) {
-                throw new \Exception('Active school year not found');
-            }
+            $schoolYear = SchoolYear::where('status', 2)->firstOrFail();
 
             return new FinalGrade([
                 'student_id' => $student->id,
@@ -72,5 +68,22 @@ class GradesImport implements ToModel, WithHeadingRow, SkipsOnFailure
             Session::flash('error', "Error in row: " . json_encode($row) . " - " . $e->getMessage());
             return null;
         }
+    }
+
+    /**
+     * Get the class assigned to the teacher for the given student.
+     *
+     * @param int $teacherId
+     * @param \App\Models\Student $student
+     * @return \App\Models\Classes|null
+     */
+    private function getClassForStudent($teacherId, $student)
+    {
+        return Classes::join('strand_subjects', 'strand_subjects.id', '=', 'classes.strand_subject_id')
+        ->join('student_sections', 'student_sections.section_id', '=', 'classes.section_id')
+        ->where('student_sections.student_id', $student->id)
+        ->where('classes.teacher_id',$teacherId)
+        ->first();
+           
     }
 }

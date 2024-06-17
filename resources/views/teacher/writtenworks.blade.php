@@ -26,8 +26,7 @@
                 <select name="quarter" class="form-control mb-3" id="quarter">
                     <option value="1" {{ old('quarter') == 1 ? 'selected': '' }}>Quarter 1</option>
                     <option value="2" {{ old('quarter') == 2 ? 'selected': '' }}>Quarter 2</option>
-                    <option value="3" {{ old('quarter') == 3 ? 'selected': '' }}>Quarter 3</option>
-                    <option value="4" {{ old('quarter') == 4 ? 'selected': '' }}>Quarter 4</option>
+                    
                 </select>
                 <label>Highest possible score</label>
                 <div class="row mt-3 gap-3">

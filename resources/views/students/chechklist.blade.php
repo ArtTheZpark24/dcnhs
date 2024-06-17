@@ -34,6 +34,7 @@
                   <tr>
                     <th>Subjects</th>
                     <th>Average</th>
+                    <th>Remarks</th> 
                   </tr>
                 </thead>
                 <tbody>
@@ -41,7 +42,6 @@
                     @if ($subject->grade_level_id == $level->id && $subject->semester_id == $semester->id)
                       <tr>
                         <td>{{ $subject->subject }}</td>
-                     
                         <td>
                           @if ($subject->has_grades && isset($subject->average_grade))
                             {{ number_format($subject->average_grade, 2) }}
@@ -49,6 +49,17 @@
                            No Grades
                           @endif
                         </td>
+                        <td>
+                          @if ($subject->has_grades && isset($subject->average_grade))
+                            @if ($subject->average_grade < 75)
+                              Failed
+                            @else
+                              Passed
+                            @endif
+                          @else
+                            N/A
+                          @endif
+                        </td> 
                       </tr>
                       @php
                         $subjectsFound = true;

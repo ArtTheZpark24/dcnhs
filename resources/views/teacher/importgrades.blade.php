@@ -39,11 +39,22 @@
     @endif
     
   
-
+    
 
        <img class="excel-img" src="{{ asset('images/excel.jpg') }}" alt="" width="500px;" height="100px">
+       <table id="gradesExport" class="table table-borderless" style="visibility: hidden">
+    <thead>
+        <tr>
+            <th>LRN</th>
+            <th>STUDENTS NAME</th>
+            <th>INITIAL GRADE</th>
+            <th>FINAL GRADE</th>
+        </tr>
+    </thead>
+</table>
 
-        <form action="{{ route('import.grades.post') }}" method="POST" enctype="multipart/form-data" class="mt-5 border border-dark p-5">
+
+        <form action="{{ route('import.grades.post') }}" method="POST" enctype="multipart/form-data" class="mt-5  p-5">
           @csrf
           <div class="row">
             <div class="col-md-4">
@@ -74,7 +85,11 @@
             </div>
           </div>
           <button type="submit" class="btn btn-primary mt-3">Submit</button>
+
+          
         </form>
+
+       
       </div>
     </div>
   </div>

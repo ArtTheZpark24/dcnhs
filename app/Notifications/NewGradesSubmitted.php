@@ -43,7 +43,7 @@ class NewGradesSubmitted extends Notification
     {
         return (new MailMessage)
             ->subject($this->subjectMail)
-            ->line($this->mailmessage['grades'])
+            ->line($this->mailmessage)
             ->line('Thank you for using our application!');
     }
 }
